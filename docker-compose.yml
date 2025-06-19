@@ -1,0 +1,25 @@
+services:
+  kali:
+    build:
+      context: .
+      args:
+        EXTRA_PACKAGES: ${EXTRA_PACKAGES}
+    container_name: ${CONTAINER_NAME}
+    expose:
+      - "6080"
+    networks:
+      - proxy
+    environment:
+      - VNC_PASSWORD=${VNC_PASSWORD}
+      - VIRTUAL_HOST=${VIRTUAL_HOST}
+      - VIRTUAL_PORT=${VIRTUAL_PORT}
+      - LETSENCRYPT_HOST=${LETSENCRYPT_HOST}
+      - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
+    tty: true
+    stdin_open: true
+    volumes:
+      - ./data:/root/shared
+
+networks:
+  proxy:
+    external: true
